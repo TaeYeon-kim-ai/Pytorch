@@ -33,4 +33,4 @@ labels_map = {
 }
 figure = plt.figure(figsize = (8, 8))
 clas, rows = 3, 3
-for i in range(1, cols * )
+#for i in range(1, cols * )
