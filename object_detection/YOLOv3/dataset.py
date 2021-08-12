@@ -42,7 +42,7 @@ class YOLODataset(Dataset) :
 
     def __getitem__(self, index) :
         label_path = os.path.join(self.label_dir, self.annotations.iloc[index, 1])
-        bboxes = np.roll(np.loadtxt(fname=label_path, delimiter=" ", ndim = 2), 4, axis = 1).tolist()
+        bboxes = np.roll(np.loadtxt(fname=label_path, delimiter=" ", ndmim = 2), 4, axis = 1).tolist()
         img_path = os.path.join(self.img_dir, self.annotations.iloc[index, 0])
         image = np.array(Image.open(img_path).convert("RGB"))
 
@@ -79,7 +79,8 @@ class YOLODataset(Dataset) :
                     )
                     
                     targets[scale_idx][anchor_on_scale, i, j, 1:5] = box_coordinates
-                    targets[scale_idx][anchor_on_scale, i, j, 1:5] = int(class_label)
+                    targets[scale_idx][anchor_on_scale, i, j, 5] = int(class_label)
+                    has_anchor[scale_idx] = True
 
                 elif not anchor_taken and iou_anchors[anchor_idx] > self.ignore_iou_thresh:
                     targets[scale_idx][anchor_on_scale, i, j, 0] = -1 #ignore this prediction
